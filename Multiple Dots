@@ -1,0 +1,78 @@
+import pygame
+pygame.init()
+w = pygame.display.set_mode([700,700])
+w.fill((255,255,255))
+b = (0,0,0)
+
+data = []
+month = []
+day = []
+x1_o = 20
+x1 = 20
+y1 = 650
+x2_o = 680
+x2 = 680
+y2 = 650
+x3 = 20
+y3_o = 650
+y3 = 650
+x4 = 20
+y4 = 50
+days_month = 30.42
+date = []
+
+# Creating the distance between the lines on both the x-axis and y-axis
+distancex = int((x2-x1)/12)
+distancey = int((y3-y4)/12)
+final = 0
+point = " "
+time1 = " "
+time2 = " "
+
+# Getting the input from the user
+while point != "quit" or time1 != "quit" or time2 != "quit":
+    for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                point == "quit" or time1 == "quit" or time2 == "quit"
+    point = input("Enter a weather point in Celsius or type quit to exit: ")
+    time1 = input("What month did this point occur at or type quit to exit? ")
+    time2 = input("What day did this point occur at or type quit to exit? ")
+
+    if point == "quit":
+        break
+    elif time1 == "quit":
+        break
+    elif time2 == "quit":
+        break
+    
+    #Putting the input into a tuple to connect all of the points
+    final = (int(point), int(time1), int(time2))
+    print(final)
+    data.append(final)
+    # Plotting the points along the scale
+    pointx = int((distancex*(int(final[1]) - 1)) + x1 + (distancex/days_month)*int(final[2]))
+    pointy = int(y3_o - ((final[0]/4)*50))
+
+        
+            
+    # Drawing the x and y-axis
+    pygame.draw.line(w,b,(x1,y1),(x2,y2))
+    pygame.draw.line(w,b,(x3,y3),(x4,y4))
+                
+    # Drawing the smaller lines on both axises
+    for i in range(12):
+        x1_o += distancex
+        y3 -= distancey
+        pygame.draw.line(w,b,(x1_o,y1 - 10),(x1_o,y1 + 10))
+        pygame.draw.line(w,b,(x3 - 10,y3),(x3 + 10,y3))
+    print("True")
+    print(data)
+    print(pointx, pointy)
+    # Drawing the point 
+    for set in data:
+        pygame.draw.circle(w,b,(pointx, pointy), 1)
+    pygame.display.flip()
+
+    
+
+    
